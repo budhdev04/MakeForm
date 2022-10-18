@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+//mid = p ; 
+// A function to merge the two half into a sorted data.
+void Merge(int *a, int low, int high, int p)
+{
+int i, j, k, temp[high-low+1];
+i = low;
+
+k = 0;
+j = p + 1;
+// Merge the two parts into temp[].
+while (i <= p && j <= high)
+{
+if (a[i] < a[j])
+{
+temp[k] = a[i];
+k++;
+i++;
+}
+else
+{
+temp[k] = a[j];
+k++;
+j++;
+}
+}
+while (i <= p)
+{
+temp[k] = a[i];
+k++;
+i++;
+}
+while (j <= high)
+{
+temp[k] = a[j];
+k++;
+j++;
+}
+// Assign sorted data stored in temp[] to a[].
+for (i = low; i <= high; i++)
+
+{
+a[i] = temp[i-low];
+}
+}
+// A function to split array into two parts.
+void MergeSort(int *a, int low, int high)
+{
+int p;
+if (low < high)
+{
+p=(low+high)/2;
+// Split the data into two half.
+MergeSort(a, low, p);
+MergeSort(a, p+1, high);
+// Merge them to get sorted output.
+Merge(a, low, high, p);
+}
+}
+int main()
+{
+int n, i;
+
+cout<<"\nEnter the number of data element to be sorted: ";
+cin>>n;
+int arr[n];
+for(i = 0; i < n; i++)
+{
+cout<<"Enter element "<<i+1<<": ";
+cin>>arr[i];
+}
+
+MergeSort(arr, 0, n-1);
+// Printing the sorted data.
+cout<<"\nSorted Data : ";
+for (i = 0; i < n; i++)
+ cout<<" "<<arr[i];
+return 0;
+}
